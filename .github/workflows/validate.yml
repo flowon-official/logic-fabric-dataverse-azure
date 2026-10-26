@@ -19,7 +19,7 @@ jobs:
     name: Bicep build and lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Install Bicep
         run: az bicep install
@@ -40,7 +40,7 @@ jobs:
     name: PSRule for Azure
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Install Bicep
         run: az bicep install
@@ -48,7 +48,8 @@ jobs:
       - name: Run PSRule
         shell: pwsh
         env:
-          PSRULE_AZURE_BICEP_USE_AZURE_CLI: 'true'
+          # The standalone binary from `az bicep install`; PSRule can't parse the az CLI's version output.
+          PSRULE_AZURE_BICEP_PATH: /home/runner/.azure/bin/bicep
         run: |
           Install-Module PSRule.Rules.Azure -RequiredVersion 1.47.0 -Scope CurrentUser -Force
           Assert-PSRule -Format File -InputPath . -Option ps-rule.yaml -Outcome Fail, Error

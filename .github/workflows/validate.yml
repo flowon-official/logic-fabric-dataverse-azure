@@ -1,0 +1,54 @@
+name: Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+env:
+  # Placeholder values for compiling deploy.bicepparam; nothing is deployed.
+  DATAVERSE_URL: https://contoso.crm.dynamics.com/
+  SETUP_MANAGED_IDENTITY_ID: /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/setup/providers/Microsoft.ManagedIdentity/userAssignedIdentities/setup
+  REDIS_PASSWORD: placeholderpassword0123456789
+
+jobs:
+  bicep:
+    name: Bicep build and lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Bicep
+        run: az bicep install
+
+      - name: Build and lint
+        run: |
+          status=0
+          for template in foundry conductor; do
+            az bicep build --file "$template/infra/main.bicep" --stdout > /dev/null
+            az bicep build-params --file "$template/infra/deploy.bicepparam" --stdout > /dev/null
+            output=$(az bicep lint --file "$template/infra/main.bicep" 2>&1)
+            echo "$output"
+            if echo "$output" | grep -qE ': (Warning|Error) '; then status=1; fi
+          done
+          exit $status
+
+  psrule:
+    name: PSRule for Azure
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Bicep
+        run: az bicep install
+
+      - name: Run PSRule
+        shell: pwsh
+        env:
+          PSRULE_AZURE_BICEP_USE_AZURE_CLI: 'true'
+        run: |
+          Install-Module PSRule.Rules.Azure -RequiredVersion 1.47.0 -Scope CurrentUser -Force
+          Assert-PSRule -Format File -InputPath . -Option ps-rule.yaml -Outcome Fail, Error

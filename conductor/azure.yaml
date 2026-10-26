@@ -1,0 +1,13 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+# Copyright (c) 2026 Flowon Corp. Licensed under the MIT License.
+# Derived from Azure-Samples/azmcp-obo-template, Copyright (c) Microsoft Corporation (MIT).
+
+name: logic-fabric-conductor
+metadata:
+  template: logic-fabric-conductor@1.0.0
+
+# Infrastructure only: the apps run published images chosen by the imageTag parameter, so there is
+# nothing for azd to build or deploy. `azd provision` and `azd up` do the same thing.
+infra:
+  provider: bicep
+  path: ./infra

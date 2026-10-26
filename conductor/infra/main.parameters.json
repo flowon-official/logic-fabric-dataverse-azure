@@ -1,0 +1,26 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": { "value": "${AZURE_LOCATION}" },
+    "namePrefix": { "value": "${namePrefix=logic-fabric}" },
+    "displayNamePrefix": { "value": "${displayNamePrefix=Flowon Logic Fabric}" },
+    "tags": { "value": { "workload": "logic-fabric" } },
+    "enableTelemetry": { "value": true },
+
+    "imageRegistry": { "value": "${imageRegistry=docker.io/flowon}" },
+    "imageTag": { "value": "${imageTag=1.0.0}" },
+
+    "flowonProjects": { "value": "${flowonProjects}" },
+    "dataverseSecurityRoleId": { "value": "${dataverseSecurityRoleId=9c714d77-f19f-ee11-baeb-00155d007237}" },
+    "grantAdminConsent": { "value": true },
+    "entraAppClientId": { "value": "${entraAppClientId}" },
+    "serviceManagementReference": { "value": "${serviceManagementReference}" },
+
+    "appInsightsConnectionString": { "value": "${appInsightsConnectionString}" },
+    "logLevel": { "value": "${logLevel=Warning}" },
+    "sizing": { "value": {} },
+    "customDomain": { "value": "${customDomain}" },
+    "allowedIpRanges": { "value": [] }
+  }
+}

@@ -1,0 +1,7 @@
+# azd environments hold subscription IDs, generated passwords and API keys
+.azure/
+
+# Bicep build output
+*.json.bak
+foundry/infra/main.json
+conductor/infra/main.json

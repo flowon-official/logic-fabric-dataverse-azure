@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Report a security vulnerability
+    url: https://github.com/flowon-official/logic-fabric-dataverse-azure/security/advisories/new
+    about: Please report vulnerabilities privately, not as issues.
+  - name: Flowon documentation
+    url: https://docs.flowon.com
+    about: Product documentation and support

@@ -1,0 +1,41 @@
+# PSRule for Azure: checks the templates against the Azure Well-Architected Framework.
+# https://azure.github.io/PSRule.Rules.Azure/
+
+requires:
+  PSRule.Rules.Azure: '>=1.47.0'
+
+include:
+  module:
+    - PSRule.Rules.Azure
+
+input:
+  pathIgnore:
+    - '**'
+    - '!**/deploy.bicepparam'
+
+configuration:
+  AZURE_BICEP_PARAMS_FILE_EXPANSION: true
+  AZURE_BICEP_CHECK_TOOL: true
+
+rule:
+  exclude:
+    # The apps send telemetry with the Application Insights connection string.
+    - Azure.AppInsights.LocalAuth
+    # Container Apps mounts Azure Files with the storage account key.
+    - Azure.Storage.LocalAuth
+    # The storage account only holds Redis snapshots; LRS keeps cost down.
+    - Azure.Storage.UseReplication
+    # Workspace replication is a cost decision left to the deployer.
+    - Azure.Log.Replication
+    # Zone redundancy, internal-only ingress, IP restrictions and replica counts are opt-in
+    # (network.zoneRedundant, network.internal, allowedIpRanges, *Sizing.minReplicas), so the
+    # defaults deploy in any region without a virtual network.
+    - Azure.ContainerApp.AvailabilityZone
+    - Azure.ContainerApp.PublicAccess
+    - Azure.ContainerApp.RestrictIngress
+    - Azure.ContainerApp.MinReplicas
+
+suppression:
+  # Redis calls no Azure services, so it has no identity.
+  Azure.ContainerApp.ManagedIdentity:
+    - logic-fabric-redis

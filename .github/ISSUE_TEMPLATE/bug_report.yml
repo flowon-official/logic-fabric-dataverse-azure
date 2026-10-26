@@ -1,0 +1,38 @@
+name: Bug report
+description: A template fails to deploy or deploys something wrong
+labels: [bug]
+body:
+  - type: dropdown
+    id: template
+    attributes:
+      label: Template
+      options:
+        - foundry
+        - conductor
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Template version
+      description: Release tag or commit you deployed
+      placeholder: v1.0.0
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: The command you ran and the full error. Remove subscription IDs, URLs and keys.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+  - type: input
+    id: tools
+    attributes:
+      label: Tool versions
+      description: Output of `azd version` and `az bicep version`

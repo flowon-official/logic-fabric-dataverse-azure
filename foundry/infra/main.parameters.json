@@ -1,0 +1,53 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": { "value": "${AZURE_LOCATION}" },
+    "namePrefix": { "value": "${namePrefix=logic-fabric}" },
+    "displayNamePrefix": { "value": "${displayNamePrefix=Flowon Logic Fabric}" },
+    "tags": { "value": { "workload": "logic-fabric" } },
+    "enabledAgents": { "value": ["assist", "assurance", "context", "guard", "insight", "sentinel"] },
+    "enableTelemetry": { "value": true },
+
+    "imageRegistry": { "value": "${imageRegistry=docker.io/flowon}" },
+    "imageTag": { "value": "${imageTag=1.0.0}" },
+    "imageTagOverrides": { "value": {} },
+
+    "dataverseSecurityRoleId": { "value": "${dataverseSecurityRoleId=9c714d77-f19f-ee11-baeb-00155d007237}" },
+    "grantAdminConsent": { "value": true },
+    "entraAppClientId": { "value": "${entraAppClientId}" },
+    "agentEntraAppIds": { "value": {} },
+    "serviceManagementReference": { "value": "${serviceManagementReference}" },
+
+    "llmProvider": { "value": "${llmProvider=AzureFoundryAnthropic}" },
+    "llmMaxConcurrency": { "value": 4 },
+    "azureFoundryAnthropicEndpoint": { "value": "${azureFoundryAnthropicEndpoint}" },
+    "azureFoundryAnthropicApiKey": { "value": "${azureFoundryAnthropicApiKey}" },
+    "azureFoundryAnthropicModel": { "value": "${azureFoundryAnthropicModel}" },
+    "azureFoundryAnthropicTimeoutMinutes": { "value": 10 },
+    "azureFoundryAnthropicMaxOutputTokens": { "value": 16384 },
+    "azureFoundryAnthropicVersion": { "value": "${azureFoundryAnthropicVersion=2023-06-01}" },
+    "azureFoundryEndpoint": { "value": "${azureFoundryEndpoint}" },
+    "azureFoundryApiKey": { "value": "${azureFoundryApiKey}" },
+    "azureFoundryModel": { "value": "${azureFoundryModel}" },
+    "azureFoundryOpenAIEndpoint": { "value": "${azureFoundryOpenAIEndpoint}" },
+    "azureFoundryOpenAIApiKey": { "value": "${azureFoundryOpenAIApiKey}" },
+    "azureFoundryOpenAIModel": { "value": "${azureFoundryOpenAIModel}" },
+    "openAIApiKey": { "value": "${openAIApiKey}" },
+    "openAIModel": { "value": "${openAIModel}" },
+    "anthropicApiKey": { "value": "${anthropicApiKey}" },
+    "anthropicModel": { "value": "${anthropicModel}" },
+    "anthropicTimeoutMinutes": { "value": 10 },
+    "anthropicMaxOutputTokens": { "value": 16384 },
+    "anthropicVersion": { "value": "${anthropicVersion=2023-06-01}" },
+
+    "appInsightsConnectionString": { "value": "${appInsightsConnectionString}" },
+    "logLevel": { "value": "${logLevel=Warning}" },
+    "foundrySizing": { "value": {} },
+    "agentSizing": { "value": {} },
+    "foundryCustomDomain": { "value": "${foundryCustomDomain}" },
+    "agentCustomDomains": { "value": {} },
+    "allowedIpRanges": { "value": [] },
+    "externalRedisConnectionString": { "value": "${externalRedisConnectionString}" }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "extensions": {
+    "microsoftGraphV1": "br:mcr.microsoft.com/bicep/extensions/microsoftgraph/v1.0:1.0.0"
+  },
+  "analyzers": {
+    "core": {
+      "rules": {
+        "use-recent-api-versions": { "level": "warning" },
+        "use-recent-module-versions": { "level": "off" },
+        "no-unused-params": { "level": "error" },
+        "no-unused-vars": { "level": "error" },
+        "secure-secrets-in-params": { "level": "error" },
+        "outputs-should-not-contain-secrets": { "level": "error" }
+      }
+    }
+  }
+}

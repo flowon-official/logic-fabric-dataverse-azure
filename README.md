@@ -74,12 +74,12 @@ az login
     -DataverseUrl https://your-org.crm.dynamics.com/
 ```
 
-| Argument | Required | Description |
+| Parameter | Required | Description |
 |---|---|---|
-| `-ResourceGroup` | Yes | Resource group for the identity, created if it doesn't exist. Use a different one from your deployments: `azd down` deletes the deployment's resource group. |
-| `-Location` | Yes | Azure region, e.g. `westeurope` |
-| `-DataverseUrl` | Yes | URL of the Dataverse environment |
-| `-Name` | No | Identity name. Default: `logic-fabric-dataverse-setup` |
+| `ResourceGroup` | Yes | Resource group for the identity, created if it doesn't exist. Use a different one from your deployments: `azd down` deletes the deployment's resource group. |
+| `Location` | Yes | Azure region, e.g. `westeurope` |
+| `DataverseUrl` | Yes | URL of the Dataverse environment |
+| `Name` | No | Identity name. Default: `logic-fabric-dataverse-setup` |
 
 Run it as a user who is a System Administrator in the Dataverse environment and who can create
 managed identities in the resource group (Contributor or Managed Identity Contributor), or create

@@ -23,7 +23,7 @@ Names derive from `namePrefix`: `<prefix>-conductor`, `<prefix>-conductor-env` a
 
 ## Prerequisites
 
-See [Before you start](../README.md#before-you-start). The Dataverse environment also needs at
+See [Check the prerequisites](../README.md#1-check-the-prerequisites). The Dataverse environment also needs at
 least one artifact with **Expose as MCP Tool** turned on in the projects you expose.
 
 ## Deploy with azd
@@ -68,7 +68,7 @@ object parameters are set by editing [`infra/main.parameters.json`](infra/main.p
 | Parameter | Default | Description |
 |---|---|---|
 | `dataverseUrl` | *required* | Dataverse environment URL |
-| `setupManagedIdentityId` | *required* | Resource ID of the setup identity (see [Before you start](../README.md#before-you-start)) |
+| `setupManagedIdentityId` | *required* | Resource ID of the setup identity (see [Create the setup identity](../README.md#3-create-the-setup-identity)) |
 | `flowonProjects` | *(none)* | Comma- or semicolon-separated Flowon project names to expose. With none, Conductor exposes no tools. |
 | `namePrefix` | `logic-fabric` | Resource name prefix, 2–22 characters: lowercase letters, digits and hyphens, starting with a letter |
 | `displayNamePrefix` | `Flowon Logic Fabric` | Prefix for Entra app display names |

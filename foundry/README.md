@@ -27,7 +27,7 @@ Names derive from `namePrefix`: `<prefix>-foundry`, `<prefix>-assist`, `<prefix>
 
 ## Prerequisites
 
-See [Before you start](../README.md#before-you-start). You also need an LLM endpoint and key for
+See [Check the prerequisites](../README.md#1-check-the-prerequisites). You also need an LLM endpoint and key for
 one of the [supported providers](#llm-provider).
 
 ## Deploy with azd
@@ -84,7 +84,7 @@ object parameters are set by editing [`infra/main.parameters.json`](infra/main.p
 | Parameter | Default | Description |
 |---|---|---|
 | `dataverseUrl` | *required* | Dataverse environment URL |
-| `setupManagedIdentityId` | *required* | Resource ID of the setup identity (see [Before you start](../README.md#before-you-start)) |
+| `setupManagedIdentityId` | *required* | Resource ID of the setup identity (see [Create the setup identity](../README.md#3-create-the-setup-identity)) |
 | `namePrefix` | `logic-fabric` | Resource name prefix, 2–22 characters: lowercase letters, digits and hyphens, starting with a letter |
 | `displayNamePrefix` | `Flowon Logic Fabric` | Prefix for Entra app display names |
 | `enabledAgents` | all six | Agents to deploy, e.g. `["assist", "guard"]` |
@@ -115,7 +115,7 @@ Container Apps secrets.
 |---|---|---|
 | `AzureFoundryAnthropic` *(default)*: Claude on Azure AI Foundry | `azureFoundryAnthropicEndpoint`, `azureFoundryAnthropicApiKey`, `azureFoundryAnthropicModel` | `azureFoundryAnthropicTimeoutMinutes` (10), `azureFoundryAnthropicMaxOutputTokens` (16384), `azureFoundryAnthropicVersion` (2023-06-01) |
 | `AzureFoundry`: Azure AI Inference models | `azureFoundryEndpoint`, `azureFoundryApiKey`, `azureFoundryModel` | |
-| `AzureOpenAI`: Azure OpenAI | `azureFoundryOpenAIEndpoint`, `azureFoundryOpenAIApiKey`, `azureFoundryOpenAIModel` | |
+| `AzureFoundryOpenAI`: OpenAI models on Azure AI Foundry (Azure OpenAI) | `azureFoundryOpenAIEndpoint`, `azureFoundryOpenAIApiKey`, `azureFoundryOpenAIModel` | |
 | `OpenAI` | `openAIApiKey`, `openAIModel` | |
 | `Anthropic` | `anthropicApiKey`, `anthropicModel` | `anthropicTimeoutMinutes` (10), `anthropicMaxOutputTokens` (16384), `anthropicVersion` (2023-06-01) |
 

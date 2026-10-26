@@ -110,7 +110,7 @@ param serviceManagementReference string = ''
 @allowed([
   'AzureFoundryAnthropic'
   'AzureFoundry'
-  'AzureOpenAI'
+  'AzureFoundryOpenAI'
   'OpenAI'
   'Anthropic'
 ])
@@ -148,14 +148,14 @@ param azureFoundryApiKey string = ''
 @description('AzureFoundry: model name')
 param azureFoundryModel string = ''
 
-@description('AzureOpenAI: endpoint')
+@description('AzureFoundryOpenAI: endpoint, e.g. https://<resource>.openai.azure.com/')
 param azureFoundryOpenAIEndpoint string = ''
 
 @secure()
-@description('AzureOpenAI: API key')
+@description('AzureFoundryOpenAI: API key')
 param azureFoundryOpenAIApiKey string = ''
 
-@description('AzureOpenAI: deployment name')
+@description('AzureFoundryOpenAI: deployment name')
 param azureFoundryOpenAIModel string = ''
 
 @secure()
@@ -271,7 +271,7 @@ var llmEnvByProvider = {
     { name: 'AZURE_FOUNDRY_ENDPOINT', value: azureFoundryEndpoint }
     { name: 'AZURE_FOUNDRY_MODEL', value: azureFoundryModel }
   ]
-  AzureOpenAI: [
+  AzureFoundryOpenAI: [
     { name: 'AZURE_FOUNDRY_OPENAI_ENDPOINT', value: azureFoundryOpenAIEndpoint }
     { name: 'AZURE_FOUNDRY_OPENAI_MODEL', value: azureFoundryOpenAIModel }
   ]
@@ -286,10 +286,13 @@ var llmEnvByProvider = {
   ]
 }
 
+// The agent images read AzureFoundryOpenAI as 'AzureOpenAI'.
+var llmProviderEnvValue = llmProvider == 'AzureFoundryOpenAI' ? 'AzureOpenAI' : llmProvider
+
 var llmApiKeyEnvNameByProvider = {
   AzureFoundryAnthropic: 'AZURE_FOUNDRY_ANTHROPIC_API_KEY'
   AzureFoundry: 'AZURE_FOUNDRY_API_KEY'
-  AzureOpenAI: 'AZURE_FOUNDRY_OPENAI_API_KEY'
+  AzureFoundryOpenAI: 'AZURE_FOUNDRY_OPENAI_API_KEY'
   OpenAI: 'OPENAI_API_KEY'
   Anthropic: 'ANTHROPIC_API_KEY'
 }
@@ -297,7 +300,7 @@ var llmApiKeyEnvNameByProvider = {
 var selectedLlmApiKey = {
   AzureFoundryAnthropic: azureFoundryAnthropicApiKey
   AzureFoundry: azureFoundryApiKey
-  AzureOpenAI: azureFoundryOpenAIApiKey
+  AzureFoundryOpenAI: azureFoundryOpenAIApiKey
   OpenAI: openAIApiKey
   Anthropic: anthropicApiKey
 }[llmProvider]
@@ -549,7 +552,7 @@ module agentContainerApps '../../modules/container-app.bicep' = [
           { name: 'FOUNDRY_MCP_SERVER__AUTHENTICATION_STRATEGY', value: 'OnBehalfOf' }
           { name: 'FOUNDRY_MCP_SERVER__URL', value: '${foundryContainerApp.outputs.containerAppUrl}/mcp' }
           { name: 'FOUNDRY_MCP_SERVER__SCOPES', value: 'api://${entraAppServer.outputs.entraAppClientId}/${foundryScopeValue}' }
-          { name: 'LLM_PROVIDER', value: llmProvider }
+          { name: 'LLM_PROVIDER', value: llmProviderEnvValue }
           { name: 'LLM_MAX_CONCURRENCY', value: string(llmMaxConcurrency) }
           { name: 'REDIS_CONNECTION_STRING', secretRef: 'redis-connection-string' }
         ],

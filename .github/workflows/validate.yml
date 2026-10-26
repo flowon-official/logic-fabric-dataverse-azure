@@ -42,14 +42,16 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      # PSRule needs the standalone Bicep CLI on PATH; it can't parse the az CLI's version output.
       - name: Install Bicep
-        run: az bicep install
+        run: |
+          curl -fsSLo bicep https://github.com/Azure/bicep/releases/latest/download/bicep-linux-x64
+          chmod +x bicep
+          sudo mv bicep /usr/local/bin/bicep
+          bicep --version
 
       - name: Run PSRule
         shell: pwsh
-        env:
-          # The standalone binary from `az bicep install`; PSRule can't parse the az CLI's version output.
-          PSRULE_AZURE_BICEP_PATH: /home/runner/.azure/bin/bicep
         run: |
           Install-Module PSRule.Rules.Azure -RequiredVersion 1.47.0 -Scope CurrentUser -Force
           Assert-PSRule -Format File -InputPath . -Option ps-rule.yaml -Outcome Fail, Error

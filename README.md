@@ -146,6 +146,7 @@ The parameters most deployments change:
 | `setupManagedIdentityId` | both | Setup identity from step 3 (required) |
 | `llmProvider` and its endpoint, model and key | foundry | LLM the agents use: Claude on Azure AI Foundry by default, or OpenAI models on Azure AI Foundry, other Azure AI Foundry models, OpenAI or Anthropic |
 | `enabledAgents` | foundry | Which agents to deploy (default: all six) |
+| `foundryReadOnly` | foundry | Make Foundry refuse every change, for test and production environments (default `false`) |
 | `flowonProjects` | conductor | Flowon projects whose artifacts become MCP tools |
 | `namePrefix` | both | Prefix for resource names (default `logic-fabric`) |
 | `imageTag` | both | Container image version to run (default: the versions the release was tested with) |

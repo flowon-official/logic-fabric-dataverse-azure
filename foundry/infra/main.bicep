@@ -80,7 +80,7 @@ param imageTagOverrides imageTagOverridesType = {}
 // The image versions this template release was tested with; imageTag and imageTagOverrides replace them.
 // Foundry 2.0.0 has new tools, which the agents use from 1.0.2 (Assist 1.0.3) on: upgrade them together.
 var defaultImageTags = {
-  foundry: '2.0.0'
+  foundry: '2.0.1'
   assist: '1.0.3'
   assurance: '1.0.2'
   context: '1.0.2'
@@ -202,6 +202,9 @@ param appInsightsConnectionString string = ''
 
 @description('Minimum log level for Foundry and the agents')
 param logLevel logLevelType = 'Warning'
+
+@description('Run Foundry read-only: it answers questions and runs analyses but refuses every change. Use it for test and production environments.')
+param foundryReadOnly bool = false
 
 @description('Foundry container size and scale')
 param foundrySizing containerSizingType = {}
@@ -529,6 +532,7 @@ module foundryContainerApp '../../modules/container-app.bicep' = {
         { name: 'DATAVERSE__AUTHENTICATION_STRATEGY', value: 'OnBehalfOf' }
         { name: 'DATAVERSE__URL', value: dataverseUrl }
         { name: 'DATAVERSE__SCOPES', value: '${dataverseUrl}.default' }
+        { name: 'FOUNDRY_READ_ONLY', value: foundryReadOnly ? 'true' : 'false' }
       ],
       telemetryEnv
     )

@@ -43,6 +43,7 @@
 
     "appInsightsConnectionString": { "value": "${appInsightsConnectionString}" },
     "logLevel": { "value": "${logLevel=Warning}" },
+    "foundryReadOnly": { "value": false },
     "foundrySizing": { "value": {} },
     "agentSizing": { "value": {} },
     "foundryCustomDomain": { "value": "${foundryCustomDomain}" },

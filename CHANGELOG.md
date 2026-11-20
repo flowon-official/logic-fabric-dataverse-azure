@@ -4,6 +4,15 @@ All notable changes to these templates are documented here. The project follows
 [Semantic Versioning](https://semver.org/). Template versions are independent of the container
 image versions; each release states the image tag it defaults to.
 
+## [1.2.0] - 2026-11-20
+
+- Default images: Foundry `2.0.1`; the others are unchanged (Assist `1.0.3`, Assurance, Context,
+  Guard, Insight, Sentinel and Conductor `1.0.2`). Foundry 2.0.1 refuses to delete, publish,
+  enable, disable, expose or hide the artifacts of a project whose solution is managed in the
+  environment, as it already refused to change them.
+- `foundry`: `foundryReadOnly` makes Foundry refuse every change. Use it for test and production
+  environments.
+
 ## [1.1.0] - 2026-11-20
 
 - Default images: Foundry `2.0.0`, Assist `1.0.3`, Assurance, Context, Guard, Insight and Sentinel
@@ -24,5 +33,6 @@ First public release.
 - `conductor`: standalone Conductor MCP server.
 - Default image tag: `1.0.0`.
 
+[1.2.0]: https://github.com/flowon-official/logic-fabric-dataverse-azure/releases/tag/v1.2.0
 [1.1.0]: https://github.com/flowon-official/logic-fabric-dataverse-azure/releases/tag/v1.1.0
 [1.0.0]: https://github.com/flowon-official/logic-fabric-dataverse-azure/releases/tag/v1.0.0

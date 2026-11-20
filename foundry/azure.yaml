@@ -4,9 +4,9 @@
 
 name: logic-fabric-foundry
 metadata:
-  template: logic-fabric-foundry@1.0.0
+  template: logic-fabric-foundry@1.1.0
 
-# Infrastructure only: the apps run published images chosen by the imageTag parameter, so there is
+# Infrastructure only: the apps run published images chosen by the image tag parameters, so there is
 # nothing for azd to build or deploy. `azd provision` and `azd up` do the same thing.
 infra:
   provider: bicep

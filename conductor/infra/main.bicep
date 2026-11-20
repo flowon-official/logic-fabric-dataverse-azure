@@ -35,7 +35,7 @@ param enableTelemetry bool = true
 param imageRegistry string = 'docker.io/flowon'
 
 @description('Conductor image tag')
-param imageTag string = '1.0.0'
+param imageTag string = '1.0.2'
 
 // ----------------------------------------------------------------------------------------------
 // Dataverse and Entra

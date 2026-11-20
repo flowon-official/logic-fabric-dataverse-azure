@@ -71,11 +71,23 @@ param enableTelemetry bool = true
 @description('Registry and namespace the images are pulled from. Must allow anonymous pulls.')
 param imageRegistry string = 'docker.io/flowon'
 
-@description('Image tag for Foundry and every agent')
-param imageTag string = '1.0.0'
+@description('Image tag for Foundry and every agent. Empty runs the versions this template release was tested with.')
+param imageTag string = ''
 
-@description('Per-image tag overrides, e.g. { assist: \'1.0.1\' }')
+@description('Per-image tag overrides, e.g. { assist: \'1.0.3\' }')
 param imageTagOverrides imageTagOverridesType = {}
+
+// The image versions this template release was tested with; imageTag and imageTagOverrides replace them.
+// Foundry 2.0.0 has new tools, which the agents use from 1.0.2 (Assist 1.0.3) on: upgrade them together.
+var defaultImageTags = {
+  foundry: '2.0.0'
+  assist: '1.0.3'
+  assurance: '1.0.2'
+  context: '1.0.2'
+  guard: '1.0.2'
+  insight: '1.0.2'
+  sentinel: '1.0.2'
+}
 
 // ----------------------------------------------------------------------------------------------
 // Dataverse and Entra
@@ -254,7 +266,7 @@ var agents = [
     entraAppUniqueName: '${replace(toLower('${displayNamePrefix} ${key} agent'), ' ', '-')}-${uniqueSuffix}'
     existingEntraAppId: agentEntraAppIds[?key] ?? ''
     customDomain: agentCustomDomains[?key] ?? ''
-    image: '${imageRegistry}/logic-fabric-dataverse-${key}:${imageTagOverrides[?key] ?? imageTag}'
+    image: '${imageRegistry}/logic-fabric-dataverse-${key}:${imageTagOverrides[?key] ?? (empty(imageTag) ? defaultImageTags[key] : imageTag)}'
   }
 ]
 
@@ -501,7 +513,7 @@ module foundryContainerApp '../../modules/container-app.bicep' = {
     location: location
     containerAppName: foundryAppName
     environmentId: containerAppsEnvironment.outputs.id
-    image: '${imageRegistry}/logic-fabric-dataverse-foundry:${imageTagOverrides.?foundry ?? imageTag}'
+    image: '${imageRegistry}/logic-fabric-dataverse-foundry:${imageTagOverrides.?foundry ?? (empty(imageTag) ? defaultImageTags.foundry : imageTag)}'
     userAssignedManagedIdentityId: foundryManagedIdentity.outputs.resourceId
     customDomain: foundryCustomDomain
     certificateId: certificateIdsByDomain[?foundryCustomDomain] ?? ''

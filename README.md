@@ -148,7 +148,7 @@ The parameters most deployments change:
 | `enabledAgents` | foundry | Which agents to deploy (default: all six) |
 | `flowonProjects` | conductor | Flowon projects whose artifacts become MCP tools |
 | `namePrefix` | both | Prefix for resource names (default `logic-fabric`) |
-| `imageTag` | both | Container image version to run |
+| `imageTag` | both | Container image version to run (default: the versions the release was tested with) |
 | `grantAdminConsent` | both | Set to `false` if you can't grant tenant-wide admin consent |
 | `tags` | both | Tags applied to every Azure resource |
 | `allowedIpRanges`, `network` | both | Restrict access by IP address, or integrate with a virtual network |
@@ -164,8 +164,10 @@ Releases are tagged `vMAJOR.MINOR.PATCH` and described in the [changelog](CHANGE
 from a release tag rather than `main`.
 
 The container images are versioned separately on Docker Hub (`flowon/logic-fabric-dataverse-*`).
-Each template pins an image tag through its `imageTag` parameter, so redeploying never upgrades
-your apps by surprise. To upgrade, set a newer `imageTag` and provision again.
+Each template release pins the image versions it was tested with, listed in the
+[changelog](CHANGELOG.md), so redeploying never upgrades your apps by surprise. To upgrade, deploy a
+newer release, or set `imageTag` (and in the Foundry template `imageTagOverrides`) and provision
+again.
 
 ## Repository layout
 

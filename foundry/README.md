@@ -89,8 +89,8 @@ object parameters are set by editing [`infra/main.parameters.json`](infra/main.p
 | `displayNamePrefix` | `Flowon Logic Fabric` | Prefix for Entra app display names |
 | `enabledAgents` | all six | Agents to deploy, e.g. `["assist", "guard"]` |
 | `tags` | `{ "workload": "logic-fabric" }` | Tags applied to every Azure resource |
-| `imageTag` | `1.0.0` | Image tag for Foundry and every agent |
-| `imageTagOverrides` | `{}` | Per-image tags, e.g. `{ "assist": "1.0.1" }` |
+| `imageTag` | empty | Image tag for Foundry and every agent. Empty runs the versions this release was tested with: Foundry `2.0.0`, Assist `1.0.3`, the other agents `1.0.2` |
+| `imageTagOverrides` | `{}` | Per-image tags, e.g. `{ "assist": "1.0.3" }` |
 | `imageRegistry` | `docker.io/flowon` | Registry and namespace to pull from; must allow anonymous pulls |
 | `logLevel` | `Warning` | `Trace`, `Debug`, `Information`, `Warning`, `Error` or `Critical` |
 | `foundrySizing`, `agentSizing` | `{}` | `{ "cpuCores": "1", "memorySize": "2Gi", "minReplicas": 2, "maxReplicas": 5 }`. Defaults: 0.5 vCPU, 1Gi, 1–3 replicas |
@@ -166,8 +166,12 @@ domains are also added as sign-in redirect URIs on the agent's Entra app.
 
 ## Upgrading
 
-Set a newer `imageTag` (or individual `imageTagOverrides`) and run `azd provision`. Check the
-[changelog](../CHANGELOG.md) when moving to a new template release.
+Deploy a newer template release, or set `imageTag` (or individual `imageTagOverrides`), and run
+`azd provision`. Check the [changelog](../CHANGELOG.md) when moving to a new template release.
+
+Foundry 2.0.0 replaced its tools with 13 new ones. The agents use them from 1.0.2 on (Assist from
+1.0.3), so upgrade Foundry and the agents together, and switch any MCP client that calls Foundry's
+old tool names.
 
 ## Removing a deployment
 

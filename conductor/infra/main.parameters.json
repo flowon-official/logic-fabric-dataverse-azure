@@ -9,7 +9,7 @@
     "enableTelemetry": { "value": true },
 
     "imageRegistry": { "value": "${imageRegistry=docker.io/flowon}" },
-    "imageTag": { "value": "${imageTag=1.0.0}" },
+    "imageTag": { "value": "${imageTag=1.0.2}" },
 
     "flowonProjects": { "value": "${flowonProjects}" },
     "dataverseSecurityRoleId": { "value": "${dataverseSecurityRoleId=9c714d77-f19f-ee11-baeb-00155d007237}" },

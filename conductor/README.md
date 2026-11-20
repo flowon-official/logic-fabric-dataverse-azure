@@ -73,7 +73,7 @@ object parameters are set by editing [`infra/main.parameters.json`](infra/main.p
 | `namePrefix` | `logic-fabric` | Resource name prefix, 2–22 characters: lowercase letters, digits and hyphens, starting with a letter |
 | `displayNamePrefix` | `Flowon Logic Fabric` | Prefix for Entra app display names |
 | `tags` | `{ "workload": "logic-fabric" }` | Tags applied to every Azure resource |
-| `imageTag` | `1.0.0` | Conductor image tag |
+| `imageTag` | `1.0.2` | Conductor image tag |
 | `imageRegistry` | `docker.io/flowon` | Registry and namespace to pull from; must allow anonymous pulls |
 | `logLevel` | `Warning` | `Trace`, `Debug`, `Information`, `Warning`, `Error` or `Critical` |
 | `sizing` | `{}` | `{ "cpuCores": "0.5", "memorySize": "1Gi", "minReplicas": 2, "maxReplicas": 5 }`. Defaults: 0.25 vCPU, 0.5Gi, 1–3 replicas |
@@ -110,7 +110,7 @@ If the certificate fails because DNS hasn't propagated yet, provision again late
 
 ## Upgrading
 
-Set a newer `imageTag` and run `azd provision`.
+Deploy a newer template release, or set a newer `imageTag`, and run `azd provision`.
 
 ## Removing a deployment
 

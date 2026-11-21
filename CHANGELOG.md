@@ -4,6 +4,13 @@ All notable changes to these templates are documented here. The project follows
 [Semantic Versioning](https://semver.org/). Template versions are independent of the container
 image versions; each release states the image tag it defaults to.
 
+## [1.4.0] - 2026-11-21
+
+- Default images: Foundry `2.0.4` and Guard `1.0.3`; the others are unchanged. Foundry 2.0.4 reports a
+  logic flow's RaiseError and refused preconditions in `run` and `test`, creates test fixtures as its
+  own user, returns a link to everything `save` and `get` name, and serves the rule catalog with the
+  step types flows really have. Guard 1.0.3 reviews flows with the same corrected rules.
+
 ## [1.3.0] - 2026-11-21
 
 - Default images: Foundry `2.0.2`; the others are unchanged. Foundry 2.0.2 creates solutions (with an

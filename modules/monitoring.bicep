@@ -24,7 +24,11 @@ param enableTelemetry bool = true
 var shouldCreate = empty(appInsightsConnectionString)
 var isDisabled = appInsightsConnectionString == 'DISABLED'
 
-module workspace 'br/public:avm/res/operational-insights/workspace:0.16.1' = if (shouldCreate) {
+// The workspace also keeps the containers' console and system logs, which hold what the apps log for every request.
+// It is created whenever telemetry is on, also when an existing Application Insights resource is reused.
+var shouldCreateWorkspace = !isDisabled
+
+module workspace 'br/public:avm/res/operational-insights/workspace:0.16.1' = if (shouldCreateWorkspace) {
   name: 'log-analytics-workspace'
   params: {
     name: '${name}-workspace'
@@ -52,5 +56,5 @@ output connectionString string = shouldCreate
   ? appInsights!.outputs.connectionString
   : (isDisabled ? '' : appInsightsConnectionString)
 
-@description('Name of the Log Analytics workspace created here, or empty when one was not created')
-output logAnalyticsWorkspaceName string = shouldCreate ? workspace!.outputs.name : ''
+@description('Name of the Log Analytics workspace created here, or empty when telemetry is disabled')
+output logAnalyticsWorkspaceName string = shouldCreateWorkspace ? workspace!.outputs.name : ''

@@ -4,6 +4,17 @@ All notable changes to these templates are documented here. The project follows
 [Semantic Versioning](https://semver.org/). Template versions are independent of the container
 image versions; each release states the image tag it defaults to.
 
+## [1.3.0] - 2026-11-21
+
+- Default images: Foundry `2.0.2`; the others are unchanged. Foundry 2.0.2 creates solutions (with an
+  existing or a new publisher) for new projects, saves tables in parts that fit a tool call, sets
+  table features (notes, activities, queues, audit), publishes customizations as a Dataverse system
+  job, saves reference rows of every column type, checks test personas' preconditions as the
+  persona, and sends its request logs to Application Insights.
+- Container console and system logs now go to a Log Analytics workspace whenever telemetry is on,
+  also when `appInsightsConnectionString` reuses an existing Application Insights resource. Before,
+  a reused resource meant no workspace, and the apps' request logs were kept nowhere.
+
 ## [1.2.0] - 2026-11-20
 
 - Default images: Foundry `2.0.1`; the others are unchanged (Assist `1.0.3`, Assurance, Context,

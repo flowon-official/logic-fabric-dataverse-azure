@@ -16,7 +16,7 @@ artifacts using its own managed identity. No client secret is involved in either
 | Entra app: Conductor server | 1 | Exposes `Mcp.Tools.ReadWrite` and holds the Dataverse `user_impersonation` permission |
 | Entra app: Conductor dev client | 1 | Public client for MCP tooling such as VS Code |
 | Dataverse Application User | 1 | For Conductor's managed identity, with the `dataverseSecurityRoleId` role |
-| Application Insights and Log Analytics | 1 each | Optional; see `appInsightsConnectionString` |
+| Application Insights and Log Analytics | 1 each | Optional; see `appInsightsConnectionString` (an existing Application Insights resource can be reused; the workspace is created either way) |
 | Managed certificate | 0–1 | Only with a custom domain |
 
 Names derive from `namePrefix`: `<prefix>-conductor`, `<prefix>-conductor-env` and so on.
@@ -81,7 +81,7 @@ object parameters are set by editing [`infra/main.parameters.json`](infra/main.p
 | `grantAdminConsent` | `true` | Grants tenant-wide consent for the Dataverse permission. Set to `false` if you lack Global Administrator or Privileged Role Administrator, then grant consent under **App registrations › Conductor MCP Server › API permissions**. |
 | `entraAppClientId` | *(create)* | Reuse an existing dev client app |
 | `serviceManagementReference` | *(none)* | Service Management Reference GUID for the Entra apps |
-| `appInsightsConnectionString` | *(create)* | Reuse an existing Application Insights resource, or `DISABLED` to turn telemetry off |
+| `appInsightsConnectionString` | *(create)* | Reuse an existing Application Insights resource, or `DISABLED` to turn telemetry off. Container logs go to a Log Analytics workspace this template creates whenever telemetry is on. |
 | `allowedIpRanges` | `[]` (all) | IPv4 addresses or CIDR ranges allowed to reach Conductor |
 | `network` | *(none)* | Virtual network integration: `{ "infrastructureSubnetId": "<subnet ID>", "internal": false, "zoneRedundant": false }`. The subnet must be /23 or larger and not delegated. |
 | `customDomain` | *(none)* | See [Custom domain](#custom-domain) |

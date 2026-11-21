@@ -4,6 +4,13 @@ All notable changes to these templates are documented here. The project follows
 [Semantic Versioning](https://semver.org/). Template versions are independent of the container
 image versions; each release states the image tag it defaults to.
 
+## [1.5.0] - 2026-11-21
+
+- Default images: Foundry `2.0.5`; the others are unchanged. Foundry 2.0.5 lets a logic flow see a
+  formula block's empty result, checks a test trigger that Dataverse refuses (a validation recipe, a
+  column's range) against the case's expected error, saves currency column ranges, and serves a
+  corrected grammar (choice types, new variables, clearing columns).
+
 ## [1.4.0] - 2026-11-21
 
 - Default images: Foundry `2.0.4` and Guard `1.0.3`; the others are unchanged. Foundry 2.0.4 reports a

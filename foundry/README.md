@@ -89,7 +89,7 @@ object parameters are set by editing [`infra/main.parameters.json`](infra/main.p
 | `displayNamePrefix` | `Flowon Logic Fabric` | Prefix for Entra app display names |
 | `enabledAgents` | all six | Agents to deploy, e.g. `["assist", "guard"]` |
 | `tags` | `{ "workload": "logic-fabric" }` | Tags applied to every Azure resource |
-| `imageTag` | empty | Image tag for Foundry and every agent. Empty runs the versions this release was tested with: Foundry `2.0.5`, Assist `1.0.3`, Guard `1.0.3`, the other agents `1.0.2` |
+| `imageTag` | empty | Image tag for Foundry and every agent. Empty runs the versions this release was tested with: Foundry `2.0.6`, Assist `1.0.3`, Guard `1.0.3`, the other agents `1.0.2` |
 | `imageTagOverrides` | `{}` | Per-image tags, e.g. `{ "assist": "1.0.3" }` |
 | `imageRegistry` | `docker.io/flowon` | Registry and namespace to pull from; must allow anonymous pulls |
 | `logLevel` | `Warning` | `Trace`, `Debug`, `Information`, `Warning`, `Error` or `Critical` |

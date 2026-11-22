@@ -4,6 +4,12 @@ All notable changes to these templates are documented here. The project follows
 [Semantic Versioning](https://semver.org/). Template versions are independent of the container
 image versions; each release states the image tag it defaults to.
 
+## [1.6.0] - 2026-11-22
+
+- Default images: Foundry `2.0.6`; the others are unchanged. Foundry 2.0.6 reads a table, column,
+  choice or relationship with `get` in the form `save` takes, creates inactive test rows, and reads a
+  required date column that an update leaves out as empty instead of failing.
+
 ## [1.5.0] - 2026-11-21
 
 - Default images: Foundry `2.0.5`; the others are unchanged. Foundry 2.0.5 lets a logic flow see a

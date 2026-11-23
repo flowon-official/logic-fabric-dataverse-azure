@@ -4,6 +4,12 @@ All notable changes to these templates are documented here. The project follows
 [Semantic Versioning](https://semver.org/). Template versions are independent of the container
 image versions; each release states the image tag it defaults to.
 
+## [1.10.2] - 2026-11-23
+
+- Default images: Foundry `2.1.2`; the others are unchanged. Foundry 2.1.2 lists the business process versions that
+  use a logic flow or block (`get` with dependencies and `delete` failed with "NullReferenceException" for them), and
+  its app view no longer reports a result it can't show as a failure.
+
 ## [1.10.1] - 2026-11-23
 
 - Default images: Foundry `2.1.1`; the others are unchanged. Foundry 2.1.1 asks the owner to approve a change in

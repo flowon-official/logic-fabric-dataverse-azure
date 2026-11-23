@@ -4,6 +4,13 @@ All notable changes to these templates are documented here. The project follows
 [Semantic Versioning](https://semver.org/). Template versions are independent of the container
 image versions; each release states the image tag it defaults to.
 
+## [1.8.0] - 2026-11-23
+
+- Default images: Foundry `2.0.8`; the others are unchanged. Foundry 2.0.8 runs `test` cases as a persona given
+  as its user (`"analyst": "user@contoso.com"`; it failed with "The node must be of type 'JsonObject'"), and its
+  teardown deletes what a case created even when the app's rules refuse one order of deletes or a business process
+  was started on a row.
+
 ## [1.7.0] - 2026-11-22
 
 - Default images: Foundry `2.0.7`; the others are unchanged. Foundry 2.0.7 deletes a logic flow or

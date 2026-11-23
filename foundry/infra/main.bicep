@@ -80,7 +80,7 @@ param imageTagOverrides imageTagOverridesType = {}
 // The image versions this template release was tested with; imageTag and imageTagOverrides replace them.
 // Foundry 2.0.0 has new tools, which the agents use from 1.0.2 (Assist 1.0.3) on: upgrade them together.
 var defaultImageTags = {
-  foundry: '2.0.7'
+  foundry: '2.0.8'
   assist: '1.0.3'
   assurance: '1.0.2'
   context: '1.0.2'

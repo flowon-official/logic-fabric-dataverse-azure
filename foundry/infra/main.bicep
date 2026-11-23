@@ -80,7 +80,7 @@ param imageTagOverrides imageTagOverridesType = {}
 // The image versions this template release was tested with; imageTag and imageTagOverrides replace them.
 // Foundry 2.0.0 has new tools, which the agents use from 1.0.2 (Assist 1.0.3) on: upgrade them together.
 var defaultImageTags = {
-  foundry: '2.0.9'
+  foundry: '2.1.0'
   assist: '1.0.3'
   assurance: '1.0.2'
   context: '1.0.2'
@@ -459,6 +459,11 @@ module entraAppServer '../../modules/entra-server-app.bicep' = {
     acaManagedIdentityObjectId: foundryManagedIdentity.outputs.principalId
     grantAdminConsent: grantAdminConsent
     serviceManagementReference: serviceManagementReference
+    // Foundry's approval page signs the owner in to approve a change's spec or plan.
+    webRedirectUris: concat(
+      ['https://${foundryAppName}.${containerAppsEnvironment.outputs.defaultDomain}/approvals/signin-oidc'],
+      !empty(foundryCustomDomain) ? ['https://${foundryCustomDomain}/approvals/signin-oidc'] : []
+    )
   }
 }
 

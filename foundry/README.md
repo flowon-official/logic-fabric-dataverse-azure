@@ -15,7 +15,7 @@ Dataverse, on behalf of the signed-in user.
 | Container App: Redis | 1 | Internal-only cache for agent workflow and session state. Skipped when you bring your own Redis. |
 | Storage account with file share | 1 | Holds Redis snapshots so they survive restarts. Skipped with your own Redis. |
 | User-assigned managed identity | 1 per app | Each app's federated credential trusts only its own identity |
-| Entra app: Foundry server | 1 | Exposes `Mcp.Tools.ReadWrite`, pre-authorizes the dev client and every agent, and holds the Dataverse `user_impersonation` permission |
+| Entra app: Foundry server | 1 | Exposes `Mcp.Tools.ReadWrite`, pre-authorizes the dev client and every agent, holds the Dataverse `user_impersonation` permission, and signs owners in to Foundry's approval page (redirect URI `https://<Foundry>/approvals/signin-oidc`, ID tokens) |
 | Entra app: Foundry dev client | 1 | Public client for MCP tooling such as VS Code |
 | Entra app: one per agent | 1 per agent | Sign-in for the agent's web app (`Agent.AsUser` scope) and on-behalf-of client to Foundry |
 | Dataverse Application User | 1 | For Foundry's managed identity, with the `dataverseSecurityRoleId` role |
@@ -89,7 +89,7 @@ object parameters are set by editing [`infra/main.parameters.json`](infra/main.p
 | `displayNamePrefix` | `Flowon Logic Fabric` | Prefix for Entra app display names |
 | `enabledAgents` | all six | Agents to deploy, e.g. `["assist", "guard"]` |
 | `tags` | `{ "workload": "logic-fabric" }` | Tags applied to every Azure resource |
-| `imageTag` | empty | Image tag for Foundry and every agent. Empty runs the versions this release was tested with: Foundry `2.0.9`, Assist `1.0.3`, Guard `1.0.3`, the other agents `1.0.2` |
+| `imageTag` | empty | Image tag for Foundry and every agent. Empty runs the versions this release was tested with: Foundry `2.1.0`, Assist `1.0.3`, Guard `1.0.3`, the other agents `1.0.2` |
 | `imageTagOverrides` | `{}` | Per-image tags, e.g. `{ "assist": "1.0.3" }` |
 | `imageRegistry` | `docker.io/flowon` | Registry and namespace to pull from; must allow anonymous pulls |
 | `logLevel` | `Warning` | `Trace`, `Debug`, `Information`, `Warning`, `Error` or `Critical` |

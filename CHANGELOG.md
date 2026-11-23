@@ -4,6 +4,15 @@ All notable changes to these templates are documented here. The project follows
 [Semantic Versioning](https://semver.org/). Template versions are independent of the container
 image versions; each release states the image tag it defaults to.
 
+## [1.10.0] - 2026-11-23
+
+- Default images: Foundry `2.1.0`; the others are unchanged. Foundry 2.1.0 can keep the authoring workflow's
+  gate itself: it asks the owner to approve a change's spec or plan (in the client's dialog, or on its approval
+  page) and refuses writes to a gated project without an approved change. It needs the Logic Fabric Foundry
+  solution (Logic Fabric 1.0.0.43) in the environment; without it Foundry works as before.
+- The Foundry server's Entra app gets the web redirect URI `https://<Foundry>/approvals/signin-oidc` (and the custom
+  domain's) with ID tokens, for the approval page's sign-in. An existing deployment gets them on its next run.
+
 ## [1.9.0] - 2026-11-23
 
 - Default images: Foundry `2.0.9`; the others are unchanged. Foundry 2.0.9 runs a business process's own writes

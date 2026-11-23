@@ -37,6 +37,9 @@ param grantAdminConsent bool = true
 @description('Optional Service Management Reference GUID linking the app to a service in your tenant')
 param serviceManagementReference string = ''
 
+@description('Web redirect URIs for browser sign-in with ID tokens (the approval page of Foundry: <Foundry>/approvals/signin-oidc). Empty for none.')
+param webRedirectUris array = []
+
 var dataverseAppId = '00000007-0000-0000-c000-000000000000'
 var dataverseUserImpersonationScopeId = '78ce3f0f-a1ce-49c2-8cde-64b5c0896db4'
 var scopeId = guid(entraAppUniqueName, entraAppScopeValue)
@@ -70,6 +73,12 @@ resource entraApp 'Microsoft.Graph/applications@v1.0' = {
       }
     ]
     requestedAccessTokenVersion: 2
+  }
+  web: empty(webRedirectUris) ? null : {
+    redirectUris: webRedirectUris
+    implicitGrantSettings: {
+      enableIdTokenIssuance: true
+    }
   }
   requiredResourceAccess: [
     {

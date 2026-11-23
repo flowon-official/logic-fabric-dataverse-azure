@@ -4,6 +4,12 @@ All notable changes to these templates are documented here. The project follows
 [Semantic Versioning](https://semver.org/). Template versions are independent of the container
 image versions; each release states the image tag it defaults to.
 
+## [1.9.0] - 2026-11-23
+
+- Default images: Foundry `2.0.9`; the others are unchanged. Foundry 2.0.9 runs a business process's own writes
+  as Foundry's identity, not as the `test` persona, also when it connects with its own credentials (a local or
+  stdio Foundry), and its rule catalog has Guard's BP-032 (a stage that branches without a gateway).
+
 ## [1.8.0] - 2026-11-23
 
 - Default images: Foundry `2.0.8`; the others are unchanged. Foundry 2.0.8 runs `test` cases as a persona given

@@ -4,6 +4,13 @@ All notable changes to these templates are documented here. The project follows
 [Semantic Versioning](https://semver.org/). Template versions are independent of the container
 image versions; each release states the image tag it defaults to.
 
+## [1.7.0] - 2026-11-22
+
+- Default images: Foundry `2.0.7`; the others are unchanged. Foundry 2.0.7 deletes a logic flow or
+  block that calls others (it refused, naming the flows it calls as users), `get` lists what uses an
+  artifact, callers included, as `usedBy`, and `save` creates activity tables (Dataverse refused them
+  without offline availability), returning before Dataverse's minutes-long create is done.
+
 ## [1.6.0] - 2026-11-22
 
 - Default images: Foundry `2.0.6`; the others are unchanged. Foundry 2.0.6 reads a table, column,

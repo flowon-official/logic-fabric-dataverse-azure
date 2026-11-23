@@ -89,12 +89,12 @@ object parameters are set by editing [`infra/main.parameters.json`](infra/main.p
 | `displayNamePrefix` | `Flowon Logic Fabric` | Prefix for Entra app display names |
 | `enabledAgents` | all six | Agents to deploy, e.g. `["assist", "guard"]` |
 | `tags` | `{ "workload": "logic-fabric" }` | Tags applied to every Azure resource |
-| `imageTag` | empty | Image tag for Foundry and every agent. Empty runs the versions this release was tested with: Foundry `2.1.0`, Assist `1.0.3`, Guard `1.0.3`, the other agents `1.0.2` |
+| `imageTag` | empty | Image tag for Foundry and every agent. Empty runs the versions this release was tested with: Foundry `2.1.1`, Assist `1.0.3`, Guard `1.0.3`, the other agents `1.0.2` |
 | `imageTagOverrides` | `{}` | Per-image tags, e.g. `{ "assist": "1.0.3" }` |
 | `imageRegistry` | `docker.io/flowon` | Registry and namespace to pull from; must allow anonymous pulls |
 | `logLevel` | `Warning` | `Trace`, `Debug`, `Information`, `Warning`, `Error` or `Critical` |
 | `foundryReadOnly` | `false` | `true` makes Foundry read-only: it answers questions and runs analyses but refuses every change. Use it for test and production environments, where changes arrive through solutions and the pipeline |
-| `foundrySizing`, `agentSizing` | `{}` | `{ "cpuCores": "1", "memorySize": "2Gi", "minReplicas": 2, "maxReplicas": 5 }`. Defaults: 0.5 vCPU, 1Gi, 1–3 replicas |
+| `foundrySizing`, `agentSizing` | `{}` | `{ "cpuCores": "1", "memorySize": "2Gi", "minReplicas": 2, "maxReplicas": 5 }`. Defaults: 0.5 vCPU, 1Gi, 1–3 replicas. Foundry always runs as one replica (its replica settings are ignored above 1): the approval dialog needs the client's session, and the approval page's sign-in needs its keys, both in memory |
 | `enableTelemetry` | `true` | Azure Verified Modules usage telemetry to Microsoft |
 
 ### Identity and Dataverse

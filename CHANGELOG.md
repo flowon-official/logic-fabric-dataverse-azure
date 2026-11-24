@@ -4,6 +4,21 @@ All notable changes to these templates are documented here. The project follows
 [Semantic Versioning](https://semver.org/). Template versions are independent of the container
 image versions; each release states the image tag it defaults to.
 
+## [1.12.0] - 2026-11-24
+
+- Default images: Foundry `2.3.0`; the others are unchanged. Foundry 2.3.0 keeps each change's ledger in Dataverse:
+  the artifacts it created, changed, deleted or released, its test runs and their results, its requirements and
+  acceptance criteria, its review findings, the governance rules a reviewer waived, the tasks it's blocked on, and
+  the `analyze` runs recorded with `record: true`. Foundry writes these rows as its own application user. A change
+  can't be submitted while one of its blocking items is open, and accepting one with an open Blocker finding needs
+  a reviewer. This needs the Logic Fabric Foundry solution 1.0.0.47; with an earlier one, Foundry skips these
+  records and works as before.
+- Foundry 2.3.0 also tries a save, delete or release again for up to 25 seconds while a solution import, upgrade or
+  uninstall runs (it failed with "Cannot start another [WorkflowSetState] because there is a previous [Import]
+  running"), finishes `analyze` with `kind: "security"` on large organizations, serves every flow action in
+  `reference` (TryCatch included), returns the draft's source after a business process save, and creates a business
+  unit as a `test` fixture under the root business unit.
+
 ## [1.11.0] - 2026-11-24
 
 - Default images: Foundry `2.2.0`; the others are unchanged. Foundry 2.2.0 keeps each change's stage, so the

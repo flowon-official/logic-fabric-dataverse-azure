@@ -4,6 +4,15 @@ All notable changes to these templates are documented here. The project follows
 [Semantic Versioning](https://semver.org/). Template versions are independent of the container
 image versions; each release states the image tag it defaults to.
 
+## [1.10.3] - 2026-11-24
+
+- Default images: Foundry `2.1.4`; the others are unchanged. Foundry 2.1.4 asks for an approval in the dialog of a
+  client on the MCP 2026-07-28 revision, such as Claude Code (`approve` failed with "Elicitation is not supported in
+  stateless mode"), and validates a query that reads an intersect table such as `teammembership` (it failed with
+  "Value cannot be null (Parameter 'logicalName')"). Its `run` and `test` take a record input as `{"lookup": ...}`
+  as well as its ID, and refuse any other value for one (it was read as empty). A business process delete needs
+  Logic Fabric 1.0.0.45.
+
 ## [1.10.2] - 2026-11-23
 
 - Default images: Foundry `2.1.2`; the others are unchanged. Foundry 2.1.2 lists the business process versions that

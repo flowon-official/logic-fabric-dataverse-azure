@@ -4,6 +4,16 @@ All notable changes to these templates are documented here. The project follows
 [Semantic Versioning](https://semver.org/). Template versions are independent of the container
 image versions; each release states the image tag it defaults to.
 
+## [1.11.0] - 2026-11-24
+
+- Default images: Foundry `2.2.0`; the others are unchanged. Foundry 2.2.0 keeps each change's stage, so the
+  authoring workflow's order holds in every AI client: a plan is approved only after its spec, `release` with
+  `submit` sends a built change to its owner for acceptance, and the owner accepts it or sends it back to its build
+  or its spec, with a reason. Submitting and accepting need the Logic Fabric Foundry solution 1.0.0.46; with an
+  earlier one, approvals work as before. Its `test` reads `count: 0` as no rows, and its teardown removes rows the
+  app's own rules keep refusing, with custom logic bypassed (this needs the prvBypassCustomBusinessLogic privilege,
+  which System Administrators have).
+
 ## [1.10.3] - 2026-11-24
 
 - Default images: Foundry `2.1.4`; the others are unchanged. Foundry 2.1.4 asks for an approval in the dialog of a

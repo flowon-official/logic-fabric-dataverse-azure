@@ -4,6 +4,12 @@ All notable changes to these templates are documented here. The project follows
 [Semantic Versioning](https://semver.org/). Template versions are independent of the container
 image versions; each release states the image tag it defaults to.
 
+## [1.13.1] - 2026-11-25
+
+- Default images: Foundry `2.4.1`; the others are unchanged. Foundry 2.4.1 says, when it approves a spec or plan,
+  what the approval's hash is of (the text with LF line endings, task checkboxes cleared and `Blocked:` lines
+  removed) and that the workflow's plugin records it. Nothing else changes.
+
 ## [1.13.0] - 2026-11-25
 
 - Default images: Foundry `2.4.0`; the others are unchanged. Foundry 2.4.0 creates Dataverse autonumber columns:

@@ -4,6 +4,17 @@ All notable changes to these templates are documented here. The project follows
 [Semantic Versioning](https://semver.org/). Template versions are independent of the container
 image versions; each release states the image tag it defaults to.
 
+## [1.14.0] - 2026-11-25
+
+- Default images: Foundry `2.6.0`; the others are unchanged. Foundry 2.6.0 can sign users in from ChatGPT.
+- New parameter `publishAuthorizationServerMetadata` (default `false`): Foundry publishes its own OAuth authorization
+  server metadata, which is Entra ID's endpoints with the PKCE support (`S256`) that ChatGPT requires and Entra's
+  metadata leaves out. Users still sign in at Entra ID. See [Connect ChatGPT](foundry/README.md#connect-chatgpt) for
+  the Entra app ChatGPT needs.
+- New parameter `oauthRegistrationClientId` (default empty): the Entra public client app that Foundry gives every
+  client that registers itself (OAuth dynamic client registration) with a redirect URI on `chatgpt.com`. It never
+  gives out a secret. Setting it also publishes the authorization server metadata.
+
 ## [1.13.1] - 2026-11-25
 
 - Default images: Foundry `2.4.1`; the others are unchanged. Foundry 2.4.1 says, when it approves a spec or plan,

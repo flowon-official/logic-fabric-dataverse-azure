@@ -89,7 +89,7 @@ object parameters are set by editing [`infra/main.parameters.json`](infra/main.p
 | `displayNamePrefix` | `Flowon Logic Fabric` | Prefix for Entra app display names |
 | `enabledAgents` | all six | Agents to deploy, e.g. `["assist", "guard"]` |
 | `tags` | `{ "workload": "logic-fabric" }` | Tags applied to every Azure resource |
-| `imageTag` | empty | Image tag for Foundry and every agent. Empty runs the versions this release was tested with: Foundry `2.4.1`, Assist `1.0.3`, Guard `1.0.3`, the other agents `1.0.2` |
+| `imageTag` | empty | Image tag for Foundry and every agent. Empty runs the versions this release was tested with: Foundry `2.6.0`, Assist `1.0.3`, Guard `1.0.3`, the other agents `1.0.2` |
 | `imageTagOverrides` | `{}` | Per-image tags, e.g. `{ "assist": "1.0.3" }` |
 | `imageRegistry` | `docker.io/flowon` | Registry and namespace to pull from; must allow anonymous pulls |
 | `logLevel` | `Warning` | `Trace`, `Debug`, `Information`, `Warning`, `Error` or `Critical` |
@@ -106,6 +106,8 @@ object parameters are set by editing [`infra/main.parameters.json`](infra/main.p
 | `entraAppClientId` | *(create)* | Reuse an existing Foundry dev client app |
 | `agentEntraAppIds` | `{}` | Reuse existing agent apps, e.g. `{ "guard": "<app ID>" }`. Their API permissions are left as they are. |
 | `serviceManagementReference` | *(none)* | Service Management Reference GUID for the Entra apps |
+| `publishAuthorizationServerMetadata` | `false` | `true` makes Foundry publish its own OAuth authorization server metadata: Entra ID's endpoints, with the PKCE support (`S256`) that Entra's metadata leaves out. ChatGPT needs it; see [Connect ChatGPT](#connect-chatgpt). Users still sign in at Entra ID. |
+| `oauthRegistrationClientId` | *(none)* | App ID of an Entra public client app that Foundry gives every client that registers itself (OAuth dynamic client registration) with a redirect URI on `chatgpt.com`. No secret is ever given out. Setting it also publishes the authorization server metadata. |
 
 ### LLM provider
 
@@ -150,6 +152,28 @@ Azure issues a free managed certificate once DNS points at the app:
 
 If the certificate fails because DNS hasn't propagated yet, provision again later. Agent custom
 domains are also added as sign-in redirect URIs on the agent's Entra app.
+
+## Connect ChatGPT
+
+ChatGPT connects only to a server whose authorization server lists PKCE with `S256` in its
+metadata, and Entra ID's metadata doesn't. With `publishAuthorizationServerMetadata`, Foundry
+publishes its own: Entra ID's endpoints, with `S256` added. Users still sign in at Entra ID, and
+Foundry checks the same tokens as before.
+
+ChatGPT also needs an Entra app of its own, without a secret:
+
+1. In ChatGPT, start adding a custom MCP server: the server URL is `<FOUNDRY_URL>/mcp` and the
+   authentication is OAuth. Copy the callback URL ChatGPT shows,
+   `https://chatgpt.com/connector/oauth/<id>`.
+2. In the Entra admin center, register a single-tenant app. Under **Authentication**, add the
+   **Mobile and desktop applications** platform with the callback URL as its redirect URI. Don't
+   create a client secret.
+3. Under **API permissions**, add the Foundry MCP Server app's delegated `Mcp.Tools.ReadWrite`
+   permission (under **My APIs**) and Microsoft Graph's `offline_access`, then grant admin
+   consent.
+4. Set `publishAuthorizationServerMetadata` to `true` in
+   [`infra/main.parameters.json`](infra/main.parameters.json) and provision.
+5. In ChatGPT, enter the app's client ID, leave the client secret empty, and connect.
 
 ## Outputs
 
@@ -199,5 +223,12 @@ deployment, pass them back in with `entraAppClientId` and `agentEntraAppIds` ins
   conflicting state", delete the deployment script resource first.
 - **An agent's sign-in fails after you add a custom domain.** Provision again so the domain is
   added as a redirect URI.
+- **ChatGPT says "We couldn't confirm the connection" after you sign in.** Entra ID refused
+  ChatGPT's token request. The app's sign-in log (Entra admin center › Sign-in logs ›
+  Non-interactive user sign-ins) says why: `AADSTS700025` or `AADSTS7000215` means ChatGPT sent a
+  client secret. Remove the server in ChatGPT and add it again with the client ID only.
+- **ChatGPT's sign-in fails with `AADSTS50011` (redirect URI mismatch).** The callback URL ChatGPT
+  shows isn't a redirect URI of its Entra app. Add it under the app's **Mobile and desktop
+  applications** platform.
 - **A deployment fails with a container app name error.** Names are limited to 32 characters;
   keep `namePrefix` at 22 characters or fewer.

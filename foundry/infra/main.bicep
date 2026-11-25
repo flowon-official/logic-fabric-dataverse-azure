@@ -80,7 +80,7 @@ param imageTagOverrides imageTagOverridesType = {}
 // The image versions this template release was tested with; imageTag and imageTagOverrides replace them.
 // Foundry 2.0.0 has new tools, which the agents use from 1.0.2 (Assist 1.0.3) on: upgrade them together.
 var defaultImageTags = {
-  foundry: '2.4.1'
+  foundry: '2.6.0'
   assist: '1.0.3'
   assurance: '1.0.2'
   context: '1.0.2'
@@ -205,6 +205,12 @@ param logLevel logLevelType = 'Warning'
 
 @description('Run Foundry read-only: it answers questions and runs analyses but refuses every change. Use it for test and production environments.')
 param foundryReadOnly bool = false
+
+@description('Publish Foundry\'s own OAuth authorization server metadata: Entra ID\'s endpoints, with the PKCE support (S256) that Entra\'s metadata leaves out. ChatGPT needs it. Users still sign in at Entra ID.')
+param publishAuthorizationServerMetadata bool = false
+
+@description('App ID of an Entra public client app that Foundry gives every client that registers itself (OAuth dynamic client registration), such as ChatGPT. Empty for no registration. Setting it also publishes the authorization server metadata.')
+param oauthRegistrationClientId string = ''
 
 @description('Foundry container size. Foundry always runs as one replica: its client sessions and sign-in keys live in memory.')
 param foundrySizing containerSizingType = {}
@@ -540,7 +546,12 @@ module foundryContainerApp '../../modules/container-app.bicep' = {
         { name: 'DATAVERSE__URL', value: dataverseUrl }
         { name: 'DATAVERSE__SCOPES', value: '${dataverseUrl}.default' }
         { name: 'FOUNDRY_READ_ONLY', value: foundryReadOnly ? 'true' : 'false' }
+        {
+          name: 'PUBLISH_AUTHORIZATION_SERVER_METADATA'
+          value: publishAuthorizationServerMetadata || !empty(oauthRegistrationClientId) ? 'true' : 'false'
+        }
       ],
+      !empty(oauthRegistrationClientId) ? [{ name: 'OAUTH_REGISTRATION_CLIENT_ID', value: oauthRegistrationClientId }] : [],
       telemetryEnv
     )
   }

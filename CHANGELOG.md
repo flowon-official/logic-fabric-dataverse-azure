@@ -4,6 +4,13 @@ All notable changes to these templates are documented here. The project follows
 [Semantic Versioning](https://semver.org/). Template versions are independent of the container
 image versions; each release states the image tag it defaults to.
 
+## [1.13.0] - 2026-11-25
+
+- Default images: Foundry `2.4.0`; the others are unchanged. Foundry 2.4.0 creates Dataverse autonumber columns:
+  a text column, or a table's primary column, with a format such as `SUP-{SEQNUM:5}`, which Dataverse fills in when a
+  row is created. Foundry checks the format before saving, because Dataverse only checks it when the first row is
+  saved. Nothing else changes: no new setting, role or solution.
+
 ## [1.12.0] - 2026-11-24
 
 - Default images: Foundry `2.3.0`; the others are unchanged. Foundry 2.3.0 keeps each change's ledger in Dataverse:

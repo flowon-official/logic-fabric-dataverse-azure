@@ -4,6 +4,16 @@ All notable changes to these templates are documented here. The project follows
 [Semantic Versioning](https://semver.org/). Template versions are independent of the container
 image versions; each release states the image tag it defaults to.
 
+## [1.15.0] - 2026-11-25
+
+- Default images: Foundry `2.7.0`; the others are unchanged. Foundry 2.7.0 drops OAuth dynamic client registration:
+  ChatGPT takes a client ID the user enters, so it doesn't need to register itself. When an AI client's dialog comes
+  back without an approval, Foundry 2.7.0 also gives the link to its approval page: some clients close the dialog
+  before the user can answer, such as Codex reaching Foundry through a ChatGPT app.
+- The `oauthRegistrationClientId` parameter is removed; remove it from your parameters if you set it.
+- [Connect ChatGPT](foundry/README.md#connect-chatgpt) adds each user's ChatGPT callback URL to the Entra app: each
+  user's ChatGPT shows its own.
+
 ## [1.14.0] - 2026-11-25
 
 - Default images: Foundry `2.6.0`; the others are unchanged. Foundry 2.6.0 can sign users in from ChatGPT.

@@ -45,7 +45,6 @@
     "logLevel": { "value": "${logLevel=Warning}" },
     "foundryReadOnly": { "value": false },
     "publishAuthorizationServerMetadata": { "value": false },
-    "oauthRegistrationClientId": { "value": "${oauthRegistrationClientId}" },
     "foundrySizing": { "value": {} },
     "agentSizing": { "value": {} },
     "foundryCustomDomain": { "value": "${foundryCustomDomain}" },

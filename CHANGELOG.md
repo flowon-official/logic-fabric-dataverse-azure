@@ -4,6 +4,14 @@ All notable changes to these templates are documented here. The project follows
 [Semantic Versioning](https://semver.org/). Template versions are independent of the container
 image versions; each release states the image tag it defaults to.
 
+## [1.16.0] - 2026-11-25
+
+- Default images: Foundry `2.8.0`; the others are unchanged. Foundry 2.8.0 keeps three rules itself that only the
+  Logic Fabric plugin's checks kept before, so they also hold for AI clients without the plugin, such as ChatGPT:
+  creating a solution or a project needs a change whose plan the user approved, every new project needs approved
+  changes, and business units, teams, security roles and users are refused as records. Where the Logic Fabric
+  Foundry solution isn't installed, solutions and projects are created as before.
+
 ## [1.15.0] - 2026-11-25
 
 - Default images: Foundry `2.7.0`; the others are unchanged. Foundry 2.7.0 drops OAuth dynamic client registration:
